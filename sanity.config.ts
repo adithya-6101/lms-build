@@ -1,17 +1,18 @@
-'use client'
+"use client";
 
 /**
- * This configuration is used to for the Sanity Studio that’s mounted on the `\app\studio\[[...tool]]\page.tsx` route
+ * This configuration is used to for the Sanity Studio that's mounted on the `/app/studio/[[...tool]]/page.tsx` route
  */
 
-import {visionTool} from '@sanity/vision'
-import {defineConfig} from 'sanity'
-import {structureTool} from 'sanity/structure'
-import { presentationTool } from "sanity/presentation";
+import { visionTool } from "@sanity/vision";
+import { defineConfig } from "sanity";
+import { structureTool } from "sanity/structure";
+
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
-import {apiVersion, dataset, projectId} from './sanity/env'
-import {schema} from './sanity/schemaTypes'
-import {structure} from './sanity/structure'
+import { apiVersion, dataset, projectId } from "./sanity/env";
+import { schema } from "./sanity/schemaTypes";
+import { structure } from "./sanity/structure";
+import { presentationTool } from "sanity/presentation";
 
 export default defineConfig({
   basePath: "/studio",
@@ -28,7 +29,6 @@ export default defineConfig({
       previewUrl: {
         previewMode: {
           enable: "/api/draft-mode/enable",
-          disable: "/api/draft-mode/disable",
         },
       },
     }),
@@ -36,7 +36,7 @@ export default defineConfig({
   beta: {
     create: {
       startInCreateEnabled: true,
-      fallbackStudioOrigin: "lms-build.sanity.studio",
+      fallbackStudioOrigin: "lms-papafam.sanity.studio",
     },
   },
 });

@@ -37,6 +37,7 @@ export default async function RootLayout({
             <VisualEditing />
           </>
         )}
+
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

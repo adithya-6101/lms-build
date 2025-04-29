@@ -4,12 +4,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { BookOpen } from "lucide-react";
 import { urlFor } from "@/sanity/lib/image";
-import { GetCoursesQueryResult } from "@/sanity.types";
+import { CourseProgress } from "@/components/CourseProgress";
+import {
+  GetCoursesQueryResult,
+  GetEnrolledCoursesQueryResult,
+} from "@/sanity.types";
 import { Loader } from "./Loader";
-import { CourseProgress } from "./CourseProgress";
 
 interface CourseCardProps {
-  course: GetCoursesQueryResult[number];
+  course:
+    | GetCoursesQueryResult[number]
+    | NonNullable<
+        NonNullable<GetEnrolledCoursesQueryResult>["enrolledCourses"][number]["course"]
+      >;
   progress?: number;
   href: string;
 }
@@ -21,12 +28,7 @@ export function CourseCard({ course, progress, href }: CourseCardProps) {
       prefetch={false}
       className="group hover:no-underline flex"
     >
-      <div
-        className="bg-card rounded-xl overflow-hidden shadow-lg 
-      transition-all duration-300 ease-in-out 
-      hover:shadow-xl hover:translate-y-[-4px] border 
-      border-border flex flex-col flex-1"
-      >
+      <div className="bg-card rounded-xl overflow-hidden shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl hover:translate-y-[-4px] border border-border flex flex-col flex-1">
         <div className="relative h-52 w-full overflow-hidden">
           {course.image ? (
             <Image
@@ -56,8 +58,6 @@ export function CourseCard({ course, progress, href }: CourseCardProps) {
             )}
           </div>
         </div>
-
-
         <div className="p-6 flex flex-col flex-1">
           <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors duration-300">
             {course.title}

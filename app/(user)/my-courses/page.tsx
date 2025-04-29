@@ -16,8 +16,25 @@ export default async function MyCoursesPage() {
   const enrolledCourses = await getEnrolledCourses(user.id);
 
   // Get progress for each enrolled course
+  // const coursesWithProgress = await Promise.all(
+  //   enrolledCourses.map(async ({ course }) => {
+  //     if (!course) return null;
+  //     const progress = await getCourseProgress(user.id, course._id);
+  //     return {
+  //       course,
+  //       progress: progress.courseProgress,
+  //     };
+  //   })
+  // );
+
+  const uniqueEnrolledCourses = enrolledCourses.filter(
+    (enrollment, index, self) =>
+      self.findIndex((e) => e.course?._id === enrollment.course?._id) === index
+  );
+
+  // Get progress for each enrolled course
   const coursesWithProgress = await Promise.all(
-    enrolledCourses.map(async ({ course }) => {
+    uniqueEnrolledCourses.map(async ({ course }) => {
       if (!course) return null;
       const progress = await getCourseProgress(user.id, course._id);
       return {

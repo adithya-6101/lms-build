@@ -1,18 +1,20 @@
-"use client"
-import React from "react";
+"use client";
+
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-function SearchInput() {
+export function SearchInput() {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
       router.push(`/search/${encodeURIComponent(searchQuery.trim())}`);
     }
   };
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -29,5 +31,3 @@ function SearchInput() {
     </form>
   );
 }
-
-export default SearchInput;

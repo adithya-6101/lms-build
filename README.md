@@ -2,6 +2,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+
+## stripe Webhook command to process payments: stripe listen --forward-to https://lms-build-psi.vercel.app/api/stripe-checkout/webhook
 First, run the development server:
 
 ```bash

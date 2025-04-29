@@ -676,150 +676,6 @@ export type SearchQueryResult = Array<{
   } | null;
 }>;
 
-// Source: sanity/lib/lessons/getCompletionQueryResult.ts
-// Variable: getCompletionsQuery
-// Query: {    "completedLessons": *[_type == "lessonCompletion" && student._ref == $studentId && course._ref == $courseId] {      ...,      "lesson": lesson->{...},      "module": module->{...}    },    "course": *[_type == "course" && _id == $courseId][0] {      ...,      "modules": modules[]-> {        ...,        "lessons": lessons[]-> {...}      }    }  }
-export type GetCompletionsQueryResult = {
-  completedLessons: Array<{
-    _id: string;
-    _type: "lessonCompletion";
-    _createdAt: string;
-    _updatedAt: string;
-    _rev: string;
-    student?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "student";
-    };
-    lesson: {
-      _id: string;
-      _type: "lesson";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      title?: string;
-      slug?: Slug;
-      description?: string;
-      videoUrl?: string;
-      loomUrl?: string;
-      content?: Array<{
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          href?: string;
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }>;
-    } | null;
-    module: {
-      _id: string;
-      _type: "module";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      title?: string;
-      lessons?: Array<{
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        _key: string;
-        [internalGroqTypeReferenceTo]?: "lesson";
-      }>;
-    } | null;
-    course?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "course";
-    };
-    completedAt?: string;
-  }>;
-  course: {
-    _id: string;
-    _type: "course";
-    _createdAt: string;
-    _updatedAt: string;
-    _rev: string;
-    title?: string;
-    price?: number;
-    slug?: Slug;
-    description?: string;
-    image?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    category?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "category";
-    };
-    modules: Array<{
-      _id: string;
-      _type: "module";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      title?: string;
-      lessons: Array<{
-        _id: string;
-        _type: "lesson";
-        _createdAt: string;
-        _updatedAt: string;
-        _rev: string;
-        title?: string;
-        slug?: Slug;
-        description?: string;
-        videoUrl?: string;
-        loomUrl?: string;
-        content?: Array<{
-          children?: Array<{
-            marks?: Array<string>;
-            text?: string;
-            _type: "span";
-            _key: string;
-          }>;
-          style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-          listItem?: "bullet" | "number";
-          markDefs?: Array<{
-            href?: string;
-            _type: "link";
-            _key: string;
-          }>;
-          level?: number;
-          _type: "block";
-          _key: string;
-        }>;
-      }> | null;
-    }> | null;
-    instructor?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "instructor";
-    };
-  } | null;
-};
-
 // Source: sanity/lib/lessons/getCourseProgress.ts
 // Variable: progressQuery
 // Query: {    "completedLessons": *[_type == "lessonCompletion" && student._ref == $studentId && course._ref == $courseId] {      ...,      "lesson": lesson->{...},      "module": module->{...}    },    "course": *[_type == "course" && _id == $courseId][0] {      ...,      "modules": modules[]-> {        ...,        "lessons": lessons[]-> {...}      }    }  }
@@ -1035,6 +891,150 @@ export type CompletionStatusQueryResult = {
   completedAt?: string;
 } | null;
 
+// Source: sanity/lib/lessons/getLessonCompletions.ts
+// Variable: getCompletionsQuery
+// Query: {    "completedLessons": *[_type == "lessonCompletion" && student._ref == $studentId && course._ref == $courseId] {      ...,      "lesson": lesson->{...},      "module": module->{...}    },    "course": *[_type == "course" && _id == $courseId][0] {      ...,      "modules": modules[]-> {        ...,        "lessons": lessons[]-> {...}      }    }  }
+export type GetCompletionsQueryResult = {
+  completedLessons: Array<{
+    _id: string;
+    _type: "lessonCompletion";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    student?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "student";
+    };
+    lesson: {
+      _id: string;
+      _type: "lesson";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      title?: string;
+      slug?: Slug;
+      description?: string;
+      videoUrl?: string;
+      loomUrl?: string;
+      content?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }>;
+    } | null;
+    module: {
+      _id: string;
+      _type: "module";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      title?: string;
+      lessons?: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "lesson";
+      }>;
+    } | null;
+    course?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "course";
+    };
+    completedAt?: string;
+  }>;
+  course: {
+    _id: string;
+    _type: "course";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title?: string;
+    price?: number;
+    slug?: Slug;
+    description?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    category?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "category";
+    };
+    modules: Array<{
+      _id: string;
+      _type: "module";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      title?: string;
+      lessons: Array<{
+        _id: string;
+        _type: "lesson";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        title?: string;
+        slug?: Slug;
+        description?: string;
+        videoUrl?: string;
+        loomUrl?: string;
+        content?: Array<{
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: "span";
+            _key: string;
+          }>;
+          style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+          listItem?: "bullet" | "number";
+          markDefs?: Array<{
+            href?: string;
+            _type: "link";
+            _key: string;
+          }>;
+          level?: number;
+          _type: "block";
+          _key: string;
+        }>;
+      }> | null;
+    }> | null;
+    instructor?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "instructor";
+    };
+  } | null;
+};
+
 // Source: sanity/lib/student/getEnrolledCourses.ts
 // Variable: getEnrolledCoursesQuery
 // Query: *[_type == "student" && clerkId == $clerkId][0] {    "enrolledCourses": *[_type == "enrollment" && student._ref == ^._id] {      ...,      "course": course-> {        ...,        "slug": slug.current,        "category": category->{...},        "instructor": instructor->{...}      }    }  }
@@ -1173,7 +1173,7 @@ declare module "@sanity/client" {
     "*[_type == \"course\" && slug.current == $slug][0] {\n      ...,\n      \"category\": category->{...},\n      \"instructor\": instructor->{...},\n      \"modules\": modules[]-> {\n        ...,\n        \"lessons\": lessons[]-> {...}\n      }\n    }": GetCourseBySlugQueryResult;
     "*[_type == \"course\"] {\n    ...,\n    \"slug\": slug.current,\n    \"category\": category->{...},\n    \"instructor\": instructor->{...}\n  }": GetCoursesQueryResult;
     "*[_type == \"course\" && (\n    title match $term + \"*\" ||\n    description match $term + \"*\" ||\n    category->name match $term + \"*\"\n  )] {\n    ...,\n    \"slug\": slug.current,\n    \"category\": category->{...},\n    \"instructor\": instructor->{...}\n  }": SearchQueryResult;
-    "{\n    \"completedLessons\": *[_type == \"lessonCompletion\" && student._ref == $studentId && course._ref == $courseId] {\n      ...,\n      \"lesson\": lesson->{...},\n      \"module\": module->{...}\n    },\n    \"course\": *[_type == \"course\" && _id == $courseId][0] {\n      ...,\n      \"modules\": modules[]-> {\n        ...,\n        \"lessons\": lessons[]-> {...}\n      }\n    }\n  }": GetCompletionsQueryResult | ProgressQueryResult;
+    "{\n    \"completedLessons\": *[_type == \"lessonCompletion\" && student._ref == $studentId && course._ref == $courseId] {\n      ...,\n      \"lesson\": lesson->{...},\n      \"module\": module->{...}\n    },\n    \"course\": *[_type == \"course\" && _id == $courseId][0] {\n      ...,\n      \"modules\": modules[]-> {\n        ...,\n        \"lessons\": lessons[]-> {...}\n      }\n    }\n  }": ProgressQueryResult | GetCompletionsQueryResult;
     "*[_type == \"lesson\" && _id == $id][0] {\n    ...,\n    \"module\": module->{\n      ...,\n      \"course\": course->{...}\n    }\n  }": GetLessonByIdQueryResult;
     "*[_type == \"lessonCompletion\" && student._ref == $studentId && lesson._ref == $lessonId][0] {\n    ...\n  }": CompletionStatusQueryResult;
     "*[_type == \"student\" && clerkId == $clerkId][0] {\n    \"enrolledCourses\": *[_type == \"enrollment\" && student._ref == ^._id] {\n      ...,\n      \"course\": course-> {\n        ...,\n        \"slug\": slug.current,\n        \"category\": category->{...},\n        \"instructor\": instructor->{...}\n      }\n    }\n  }": GetEnrolledCoursesQueryResult;

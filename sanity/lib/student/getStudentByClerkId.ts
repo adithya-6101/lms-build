@@ -11,5 +11,5 @@ export async function getStudentByClerkId(clerkId: string) {
     params: { clerkId },
   });
 
-  return student.data;
+  return student;
 }

@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { getStudentByClerkId } from "@/sanity/lib/student/getStudentByClerkId";
 import { createEnrollment } from "@/sanity/lib/student/createEnrollment";
+import { isEnrolledInCourse } from "@/sanity/lib/student/isEnrolledInCourse";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2023-10-16" as Stripe.LatestApiVersion,
@@ -48,14 +49,22 @@ export async function POST(req: Request) {
 
       const student = await getStudentByClerkId(userId);
 
-      if (!student) {
+      if (!student.data) {
         return new NextResponse("Student not found", { status: 400 });
       }
-      console.log(student)
+      // Check if the student is already enrolled in the course
+      const isEnrolled = await isEnrolledInCourse(student.data._id, courseId);
+
+      if (isEnrolled) {
+        console.log(
+          `Student ${userId} is already enrolled in course ${courseId}`
+        );
+        return new NextResponse(null, { status: 200 });
+      }
 
       // Create an enrollment record in Sanity
       await createEnrollment({
-        studentId: student._id,
+        studentId: student.data._id,
         courseId,
         paymentId: session.id,
         amount: session.amount_total! / 100, // Convert from cents to dollars

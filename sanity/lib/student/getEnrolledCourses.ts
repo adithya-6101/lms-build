@@ -21,4 +21,5 @@ export async function getEnrolledCourses(clerkId: string) {
   });
 
   return result?.data?.enrolledCourses || [];
+   
 }

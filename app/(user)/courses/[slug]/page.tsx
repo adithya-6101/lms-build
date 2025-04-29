@@ -3,9 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, BookOpen } from "lucide-react";
 import EnrollButton from "@/components/EnrollButton";
+import getCourseBySlug from "@/sanity/lib/courses/getCourseBySlug";
 import { isEnrolledInCourse } from "@/sanity/lib/student/isEnrolledInCourse";
 import { auth } from "@clerk/nextjs/server";
-import getCourseBySlug from "@/sanity/lib/courses/getCourseBySlug";
 
 interface CoursePageProps {
   params: Promise<{

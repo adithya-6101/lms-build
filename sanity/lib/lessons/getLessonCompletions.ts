@@ -28,20 +28,20 @@ export async function getLessonCompletions(
   const { course, completedLessons } = result.data;
 
   // Calculate module progress
-//   const moduleProgress = course?.modules?.map((module) => {
-//     const totalLessons = module.lessons?.length || 0;
-//     const completedInModule = completedLessons.filter(
-//       (completion) => completion.module?._id === module._id
-//     ).length;
+  const moduleProgress = course?.modules?.map((module) => {
+    const totalLessons = module.lessons?.length || 0;
+    const completedInModule = completedLessons.filter(
+      (completion) => completion.module?._id === module._id
+    ).length;
 
-//     return {
-//       moduleId: module._id,
-//       title: module.title,
-//       progress: totalLessons > 0 ? (completedInModule / totalLessons) * 100 : 0,
-//       completedLessons: completedInModule,
-//       totalLessons,
-//     };
-//   });
+    return {
+      moduleId: module._id,
+      title: module.title,
+      progress: totalLessons > 0 ? (completedInModule / totalLessons) * 100 : 0,
+      completedLessons: completedInModule,
+      totalLessons,
+    };
+  });
 
   // Calculate overall course progress
   const totalLessons =
@@ -56,7 +56,7 @@ export async function getLessonCompletions(
 
   return {
     completedLessons: completedLessons || [],
-    // moduleProgress: moduleProgress || [],
+    moduleProgress: moduleProgress || [],
     courseProgress,
   };
 }
